@@ -2,8 +2,8 @@
   "_comment": "Knowledge Base Backup Configuration — edit this file to add/remove projects, paths, and categories.",
 
   "source_base": "C:/Users/arijit.kundu/projects",
-  "destination_base": "C:/Users/arijit.kundu/OneDrive - WiseTech Global/claude-workspace",
-  "log_file": "C:/Users/arijit.kundu/OneDrive - WiseTech Global/claude-workspace/_logs/backup.log",
+  "destination_base": "C:/Users/arijit.kundu/OneDrive - WiseTech Global/claude-workspace/_kbase",
+  "log_file": "C:/Users/arijit.kundu/OneDrive - WiseTech Global/claude-workspace/_kbase/_logs/backup.log",
 
   "projects": [
     {
