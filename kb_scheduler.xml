@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<!--
+  Windows Task Scheduler XML for the Knowledge Base Backup script.
+
+  HOW TO INSTALL:
+    1. Open PowerShell as Administrator.
+    2. Run:
+         schtasks /Create /XML "C:\path\to\kb_scheduler.xml" /TN "KnowledgeBaseBackup" /F
+    3. To verify:
+         schtasks /Query /TN "KnowledgeBaseBackup" /FO LIST
+
+  HOW TO EDIT THE SCHEDULE:
+    Change <StartBoundary> to your preferred daily run time.
+    Current setting: every day at 08:30 AM local time.
+
+  HOW TO UPDATE PATHS:
+    - <WorkingDirectory>  : folder containing backup_knowledge_base.py and kb_config.json
+    - <Command>           : path to your python.exe  (or just "python" if it's on PATH)
+    - <Arguments>         : script name + any flags
+
+  TO RUN MANUALLY AT ANY TIME:
+    schtasks /Run /TN "KnowledgeBaseBackup"
+
+  TO DISABLE WITHOUT DELETING:
+    schtasks /Change /TN "KnowledgeBaseBackup" /DISABLE
+
+  TO REMOVE:
+    schtasks /Delete /TN "KnowledgeBaseBackup" /F
+-->
+<Task version="1.4" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+
+  <RegistrationInfo>
+    <Date>2026-05-01T00:00:00</Date>
+    <Author>arijit.kundu</Author>
+    <Description>
+      Daily backup of AI/Copilot/Claude analysis and design documents from
+      project directories to OneDrive claude-workspace knowledge base.
+      Categorizes docs and regenerates manifest.json + knowledge-base-index.md.
+    </Description>
+    <URI>\KnowledgeBaseBackup</URI>
+  </RegistrationInfo>
+
+  <Triggers>
+    <!-- Run every day at 08:30 AM — change StartBoundary to adjust time -->
+    <CalendarTrigger>
+      <StartBoundary>2026-05-01T08:30:00</StartBoundary>
+      <Enabled>true</Enabled>
+      <ScheduleByDay>
+        <DaysInterval>1</DaysInterval>
+      </ScheduleByDay>
+    </CalendarTrigger>
+
+    <!-- Also run at logon (catches missed runs after restart) -->
+    <LogonTrigger>
+      <Enabled>true</Enabled>
+      <Delay>PT2M</Delay>  <!-- wait 2 minutes after logon -->
+      <UserId>arijit.kundu@wisetechglobal.com</UserId>
+    </LogonTrigger>
+  </Triggers>
+
+  <Principals>
+    <Principal id="Author">
+      <!-- Run as current user; change LogonType if you want SYSTEM account -->
+      <UserId>arijit.kundu@wisetechglobal.com</UserId>
+      <LogonType>InteractiveToken</LogonType>
+      <RunLevel>LeastPrivilege</RunLevel>
+    </Principal>
+  </Principals>
+
+  <Settings>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <AllowHardTerminate>true</AllowHardTerminate>
+    <StartWhenAvailable>true</StartWhenAvailable>  <!-- runs if machine was off at trigger time -->
+    <RunOnlyIfNetworkAvailable>false</RunOnlyIfNetworkAvailable>
+    <IdleSettings>
+      <StopOnIdleEnd>false</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+    <AllowStartOnDemand>true</AllowStartOnDemand>
+    <Enabled>true</Enabled>
+    <Hidden>false</Hidden>
+    <RunOnlyIfIdle>false</RunOnlyIfIdle>
+    <DisallowStartOnRemoteAppSession>false</DisallowStartOnRemoteAppSession>
+    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
+    <WakeToRun>false</WakeToRun>
+    <ExecutionTimeLimit>PT30M</ExecutionTimeLimit>  <!-- kill if takes longer than 30 min -->
+    <Priority>7</Priority>
+  </Settings>
+
+  <Actions Context="Author">
+    <Exec>
+      <!--
+        EDIT THESE THREE VALUES to match your setup:
+          Command          = path to python.exe  (or "python" if on PATH)
+          Arguments        = script args (--config can point anywhere)
+          WorkingDirectory = folder containing kb_config.json
+      -->
+      <Command>python</Command>
+      <Arguments>backup_knowledge_base.py --config kb_config.json</Arguments>
+      <WorkingDirectory>C:\Users\arijit.kundu\projects\_kb-tools</WorkingDirectory>
+    </Exec>
+  </Actions>
+
+</Task>

@@ -1,0 +1,146 @@
+{
+  "_comment": "Knowledge Base Backup Configuration — edit this file to add/remove projects, paths, and categories.",
+
+  "source_base": "C:/Users/arijit.kundu/projects",
+  "destination_base": "C:/Users/arijit.kundu/OneDrive - WiseTech Global/claude-workspace",
+  "log_file": "C:/Users/arijit.kundu/OneDrive - WiseTech Global/claude-workspace/_logs/backup.log",
+
+  "projects": [
+    {
+      "name": "mercury-services",
+      "enabled": true,
+      "description": "Main Mercury microservices mono-repo",
+      "scan_paths": [
+        { "path": ".github",                    "recursive": true },
+        { "path": ".claude",                    "recursive": true },
+        { "path": ".vscode",                    "recursive": true },
+        { "path": "booking/docs",               "recursive": true },
+        { "path": "booking-bridge/docs",        "recursive": true },
+        { "path": "oceanschedules/docs",        "recursive": true },
+        { "path": "visibility/docs",            "recursive": true },
+        { "path": "watermill-publisher/docs",   "recursive": true },
+        { "path": "webbl/docs",                 "recursive": true }
+      ]
+    },
+    {
+      "name": "mercury-services-commons",
+      "enabled": true,
+      "description": "Shared libraries for Mercury services",
+      "scan_paths": [
+        { "path": ".github",              "recursive": true },
+        { "path": ".vscode",              "recursive": true },
+        { "path": "cloud-sdk-aws/docs",   "recursive": true }
+      ]
+    },
+    {
+      "name": "appianway",
+      "enabled": false,
+      "description": "Appian Way project — enable once docs are present",
+      "scan_paths": [
+        { "path": ".github",  "recursive": true },
+        { "path": ".claude",  "recursive": true },
+        { "path": ".vscode",  "recursive": true }
+      ]
+    },
+    {
+      "name": "inttra-ai",
+      "enabled": false,
+      "description": "INTTRA AI project — enable once docs are present",
+      "scan_paths": [
+        { "path": ".github",  "recursive": true },
+        { "path": ".claude",  "recursive": true },
+        { "path": ".vscode",  "recursive": true }
+      ]
+    },
+    {
+      "name": "mft-s3-aqua-appia",
+      "enabled": false,
+      "description": "MFT S3 Aqua Appia project — enable once docs are present",
+      "scan_paths": [
+        { "path": ".github",  "recursive": true },
+        { "path": ".claude",  "recursive": true },
+        { "path": ".vscode",  "recursive": true }
+      ]
+    }
+  ],
+
+  "file_extensions": [".md", ".prompt", ".txt", ".json", ".yaml", ".yml"],
+
+  "location_categories": {
+    "_comment": "Scan paths starting with these keys are automatically put in the mapped category.",
+    ".github":  "github-prompts",
+    ".claude":  "claude-skills",
+    ".vscode":  "vscode-settings"
+  },
+
+  "categories": {
+    "_comment": "Lower priority number = checked first. Filename patterns are fnmatch-style (case-insensitive). Content keywords are matched against the first 40 lines of the file.",
+    "analysis": {
+      "priority": 1,
+      "filename_patterns": [
+        "*analysis*", "*research*", "*investigation*",
+        "*review*", "*findings*", "*assessment*", "*discovery*"
+      ],
+      "content_keywords": [
+        "## Analysis", "## Background", "## Investigation",
+        "## Research", "## Findings", "## Assessment",
+        "## Current State", "## Problem Statement",
+        "# Analysis", "# Research", "# Investigation",
+        "# Current State", "# Problem Statement"
+      ]
+    },
+    "design": {
+      "priority": 2,
+      "filename_patterns": [
+        "*design*", "*architecture*", "*spec*", "*specification*",
+        "*solution*", "*approach*", "*proposal*", "*plan*",
+        "*adr*", "*rfc*", "*decision*"
+      ],
+      "content_keywords": [
+        "## Design", "## Architecture", "## Solution Design",
+        "## Technical Design", "## Approach", "## Proposed Solution",
+        "## Technical Specification", "## Decision",
+        "# Design", "# Architecture", "# Solution",
+        "# ADR", "# Technical Spec", "# RFC", "# Decision"
+      ]
+    },
+    "issues": {
+      "priority": 3,
+      "filename_patterns": [
+        "*issues*", "*issue*", "*reported-issues*", "*issues-reported*",
+        "*known-issues*", "*open-issues*"
+      ],
+      "content_keywords": [
+        "## Issues", "## Reported Issues", "## Issues Reported",
+        "## Known Issues", "## Open Issues",
+        "# Issues", "# Reported Issues", "# Issues Reported",
+        "# Known Issues", "# Open Issues"
+      ]
+    },
+    "business-rules": {
+      "priority": 4,
+      "filename_patterns": [
+        "*business-rules*", "*business_rules*", "*businessrules*"
+      ],
+      "content_keywords": [
+        "## Business Rules", "# Business Rules",
+        "## Business Rule", "# Business Rule"
+      ]
+    },
+    "templates": {
+      "priority": 5,
+      "filename_patterns": [
+        "*template*", "*scaffold*", "*boilerplate*", "*skeleton*",
+        "*confluence*", "*CONFLUENCE*"
+      ],
+      "content_keywords": [
+        "## Template", "<!-- template", "{{placeholder}}",
+        "[Your ", "REPLACE THIS", "# Template", "## Usage\n"
+      ]
+    }
+  },
+
+  "uncategorized_folder": "uncategorized",
+  "manifest_filename":    "manifest.json",
+  "index_filename":       "knowledge-base-index.md"
+}
