@@ -29,17 +29,35 @@
       "scan_paths": [
         { "path": ".github",              "recursive": true },
         { "path": ".vscode",              "recursive": true },
+		{ "path": "commons/docs",   "recursive": true },
+		{ "path": "cloud-sdk-api/docs",   "recursive": true },
         { "path": "cloud-sdk-aws/docs",   "recursive": true }
       ]
     },
     {
       "name": "appianway",
-      "enabled": false,
+      "enabled": true,
       "description": "Appian Way project — enable once docs are present",
       "scan_paths": [
         { "path": ".github",  "recursive": true },
         { "path": ".claude",  "recursive": true },
-        { "path": ".vscode",  "recursive": true }
+        { "path": ".vscode",  "recursive": true },
+		{ "path": "docs",   "recursive": true },
+		{ "path": "dispatcher/docs",   "recursive": true },
+		{ "path": "distributor/docs",   "recursive": true },
+		{ "path": "distributor-rest/docs",   "recursive": true },
+		{ "path": "email-sender/docs",   "recursive": true },
+		{ "path": "error-processor/docs",   "recursive": true },
+		{ "path": "event-writer/docs",   "recursive": true },
+		{ "path": "functional-testing/docs",   "recursive": true },
+		{ "path": "ingestor/docs",   "recursive": true },
+		{ "path": "mftdispatcher/docs",   "recursive": true },
+		{ "path": "schema-beans/docs",   "recursive": true },
+		{ "path": "splitter/docs",   "recursive": true },
+		{ "path": "structuralvalidator/docs",   "recursive": true },
+		{ "path": "transformer/docs",   "recursive": true },
+		{ "path": "validator/docs",   "recursive": true },
+		{ "path": "watermill/docs",   "recursive": true }
       ]
     },
     {
